@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Catch ME if You Can</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+	#show
+	{
+		display: none;font-size: 170%;margin-left:28%;
+	}
+	#rule
+	{
+		display: none;
+	}
+	ul{
+		list-style-type: circle;
+	}
+	.button {
+	  background-color: #4CAF50; /* Green */
+	  border: none;
+	  color: white;
+	  padding: 15px 32px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+	}
+	.button:hover {background-color: #3e8e41}
+
+	.button:active {
+	  background-color: #3e8e41;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);
+	}
+	.disabled {
+	  opacity: 0.2;
+	  cursor: not-allowed;
+	}
+	</style>
+
+	<p style="margin-left:36%;font-size: 210%;"><br><br><b> Catch  Me If  you  Can<br></b></b></p>
+	<p style="margin-left:37%;font-size: 125%;">A 1-Dimensional "Scotland Yard"  </p><br><br><br><br><br><br><br>
+	<p style="margin-left:42%;"><button class="button" onclick="rules()" > Rules </button>    <button class="button" id="start" onclick="start()" > Start </button>   </p><br><br><br><br></b></b><hr>
+</head>
+
+<body style="font-size: 135%;">
+
+
+
+	<div id="show">
+	<br><br><br><br><p  id="ans" style="margin-left:-5%;">Status :  </p>  <p id="hin">Hint : </p>   <br>
+	<p>Enter the Distance to travel : <input type="number" id="inpt" ></input>  </p>     <br>
+	<button style="margin-left:15%;" class="button" id="travel" onclick="travel()"> Travel </button><br><br>
+	<button style="margin-left:-3%;" class="button" onclick="reveal()"> Reveal & Give Up </button>
+	<button class="button" onclick="replay()"> Play Again </button>
+	<button class="button" onclick="exit()"> End Game </button>
+</div>
+
+
+
+<div id="rule">
+		<br><h1 style="margin-left:40%;">Rules : <h1> <br><br>
+	<ul style="margin-left:12%;">
+		  <li>In the country of "Scotland",the citizens can travel at max, 10 units.</li>
+		  <li>You are newly recruited in the Prestigious "Scotland Yard" and assigned with the task to catch the thief.</li>
+		  <li>Initially you both are at 0 position.There are 2 Indicators : </li>
+			<li><b>Status</b> : It tells you position with respect to the thief.</li>
+			<li><b>Hint</b> : It will signal you whether the thief ran "Slow"(d<=5) or "Fast"(d>5) in his next move.</li>
+	</ul>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>
+		var x;var s=0;var p=0;var r=0;var flag=0;
+		function rules()
+		{
+			var y = document.getElementById("show");
+			if (y.style.display === "block")
+			{
+				y.style.display = "none";
+			}
+
+			y = document.getElementById("rule");
+			if (y.style.display === "none")
+			{
+				y.style.display = "block";
+			}
+			else
+			{
+				y.style.display = "none";
+			}
+
+		}
+		function start()
+		{
+				var y = document.getElementById("rule");
+				if (y.style.display === "block")
+				{
+					y.style.display = "none";
+				}
+
+				y = document.getElementById("show");
+				if (y.style.display === "none")
+				{
+					y.style.display = "block";
+				}
+				else
+				{
+					y.style.display = "none";
+				}
+				x = Math.floor((Math.random() * 10) + 1);document.getElementById('ans').innerHTML="Status :  The Thief has Ran.Catch Him.";
+				if(x<=5)
+				{
+					document.getElementById('hin').innerHTML="Hint : The Thief has ran Slowly.";
+				}
+				else
+				{
+					document.getElementById('hin').innerHTML="Hint : The Thief has ran Fast.";
+				}
+				s=x;p=0;
+		}
+		function reveal()
+		{
+				document.getElementById('ans').innerHTML="Status :  The Thief has ran away. He was at "+s+" . Press Play Again or End Game .";
+				document.getElementById('travel').class = "button disabled";document.getElementById('travel').disabled = true;
+		}
+		function exit()
+		{
+				location.reload();
+		}
+		function replay()
+		{
+				start();
+		}
+		function travel()
+		{
+				r=document.getElementById('inpt').value;
+				r=Number(r);
+				p=Number(Number(p)+r);
+				if(p>s)
+				{
+						if((p-s)<=100)
+						{
+						document.getElementById('ans').innerHTML="Status :  You are Ahead";}
+						else
+						{	document.getElementById('ans').innerHTML="Status :  You are too Ahead. Think,if you want to continue. ";}
+				}
+				else if(p<s)
+				{
+						if((s-p)<=100)
+						{
+						document.getElementById('ans').innerHTML="Status :  You are Behind";}
+						else {
+							document.getElementById('ans').innerHTML="Status :  You are too Behind. Think,if you want to continue.";
+						}
+				}
+				else
+				{
+					document.getElementById('ans').innerHTML="Status :  Congatulations You caught the thief.";flag=1;document.getElementById('hin').innerHTML="Good Job";
+				}
+
+
+				x = Math.floor((Math.random() * 10) + 1);
+				if(x<=5&&flag==0)
+				{
+					document.getElementById('hin').innerHTML="Hint : The Thief has ran Slowly.";
+				}
+				else if(x>5&&flag==0)
+				{
+					document.getElementById('hin').innerHTML="Hint : The Thief has ran Fast.";
+				}
+				s=s+x;
+		}
+	</script>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+
+
+
+<footer style="background-color:rgb(16, 16, 16);color:rgb(255, 255, 255);"><hr>
+<p style="margin-left: 7%;"> &copy;  2020 | Mehul Lokhande </p>
+<br>
+</footer>
+
+</html>
